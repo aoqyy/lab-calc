@@ -34,5 +34,3 @@ def confidence_error(xs, p=0.95):
     q = (1+p)/2
     df = len(xs)-1
     return stats.t.ppf(q, df)*std_of_means(xs)
-
-print(confidence_error(read_data('data/example.csv')))
