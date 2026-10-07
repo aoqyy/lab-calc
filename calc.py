@@ -1,4 +1,6 @@
 import csv
+from math import *
+from scipy import stats
 
 
 def read_data(path):
@@ -15,11 +17,22 @@ def read_data(path):
 def mean(xs):
     return sum(xs)/len(xs)
 
+
 def std(xs):
     avg = mean(xs)
     res = 0
     for i in xs:
         res += (i - avg)**2
-    return (res/(len(xs)-1))**0.5
+    return sqrt(res/(len(xs)-1))
 
-print(std(read_data('data/example.csv')))
+
+def std_of_means(xs):
+    return std(xs)/sqrt(len(xs))
+
+
+def confidence_error(xs, p=0.95):
+    q = (1+p)/2
+    df = len(xs)-1
+    return stats.t.ppf(q, df)*std_of_means(xs)
+
+print(confidence_error(read_data('data/example.csv')))
