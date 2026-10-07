@@ -15,4 +15,11 @@ def read_data(path):
 def mean(xs):
     return sum(xs)/len(xs)
 
-print(mean(read_data('data/example.csv')))
+def std(xs):
+    avg = mean(xs)
+    res = 0
+    for i in xs:
+        res += (i - avg)**2
+    return (res/(len(xs)-1))**0.5
+
+print(std(read_data('data/example.csv')))
